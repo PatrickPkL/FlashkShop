@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% block title %}Meu Perfil — Loja{% endblock %}
+
+{% block extra_css %}
+<style>
+    .perfil-grid { display: grid; grid-template-columns: 280px 1fr; gap: 2rem; align-items: start; }
+
+    .perfil-card {
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: var(--r); padding: 2rem; text-align: center;
+        position: sticky; top: 80px;
+    }
+    .perfil-avatar {
+        width: 72px; height: 72px; border-radius: 50%;
+        background: linear-gradient(135deg, var(--accent), #8b6a3e);
+        display: flex; align-items: center; justify-content: center;
+        font-family: var(--display); font-size: 1.8rem; font-weight: 700;
+        color: #0a0a0a; margin: 0 auto 1rem;
+    }
+    .perfil-nome { font-family: var(--display); font-size: 1.2rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .perfil-email { color: var(--muted); font-size: 0.85rem; margin-bottom: 1.25rem; word-break: break-all; }
+    .perfil-info { text-align: left; border-top: 1px solid var(--border); padding-top: 1.25rem; }
+    .info-row { display: flex; justify-content: space-between; font-size: 0.82rem; padding: 0.35rem 0; }
+    .info-key { color: var(--muted); }
+    .info-val { color: var(--text); font-weight: 400; }
+
+    .pedidos-section h2 { font-family: var(--display); font-size: 1.3rem; font-weight: 700; margin-bottom: 1.25rem; }
+
+    .pedido-item {
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: var(--r); padding: 1.1rem 1.25rem;
+        display: flex; align-items: center; gap: 1rem;
+        margin-bottom: 0.75rem; transition: border-color .2s;
+    }
+    .pedido-item:hover { border-color: #333; }
+    .pedido-id { font-family: var(--display); font-size: 1.1rem; font-weight: 700; color: var(--accent); min-width: 50px; }
+    .pedido-info { flex: 1; }
+    .pedido-total { font-size: 1rem; font-weight: 500; }
+    .pedido-data { font-size: 0.78rem; color: var(--muted); margin-top: 0.15rem; }
+    .pedido-status {
+        font-size: 0.72rem; letter-spacing: 0.07em; text-transform: uppercase;
+        padding: 0.3rem 0.65rem; border-radius: 20px; font-weight: 500;
+    }
+    .status-pendente { background: rgba(201,169,110,.12); color: var(--accent); border: 1px solid rgba(201,169,110,.25); }
+    .status-pago     { background: rgba(82,184,122,.12); color: var(--success); border: 1px solid rgba(82,184,122,.25); }
+    .status-cancelado{ background: rgba(224,85,85,.12); color: var(--danger); border: 1px solid rgba(224,85,85,.25); }
+
+    .empty-pedidos { text-align: center; padding: 3rem; color: var(--muted); }
+    .empty-pedidos span { display: block; font-size: 2.5rem; opacity: .25; margin-bottom: 0.75rem; }
+
+    @media(max-width:720px) {
+        .perfil-grid { grid-template-columns: 1fr; }
+        .perfil-card { position: static; }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1 class="page-title fade-up">Meu Perfil</h1>
+<p class="page-subtitle fade-up-2">Gerencie seus dados e pedidos</p>
+
+<div class="perfil-grid">
+    <!-- CARD USUARIO -->
+    <div class="perfil-card fade-up">
+        <div class="perfil-avatar">{{ usuario.nome[0]|upper }}</div>
+        <div class="perfil-nome">{{ usuario.nome }}</div>
+        <div class="perfil-email">{{ usuario.email }}</div>
+        <div class="perfil-info">
+            {% if usuario.telefone %}
+            <div class="info-row">
+                <span class="info-key">Telefone</span>
+                <span class="info-val">{{ usuario.telefone }}</span>
+            </div>
+            {% endif %}
+            <div class="info-row">
+                <span class="info-key">Pedidos</span>
+                <span class="info-val">{{ pedidos|length }}</span>
+            </div>
+            <div class="info-row">
+                <span class="info-key">Membro desde</span>
+                <span class="info-val">{{ usuario.criado_em[:10] if usuario.criado_em else '—' }}</span>
+            </div>
+        </div>
+        <a href="{{ url_for('logout') }}" class="btn btn-ghost" style="margin-top:1.25rem; width:100%; justify-content:center">Sair da conta</a>
+    </div>
+
+    <!-- PEDIDOS -->
+    <div class="pedidos-section fade-up-2">
+        <h2>Meus Pedidos</h2>
+        {% if pedidos %}
+            {% for p in pedidos %}
+            <div class="pedido-item">
+                <div class="pedido-id">#{{ p.id }}</div>
+                <div class="pedido-info">
+                    <div class="pedido-total">R$ {{ '%.2f'|format(p.total) }}</div>
+                    <div class="pedido-data">{{ p.criado_em[:16] if p.criado_em else '' }}</div>
+                </div>
+                <span class="pedido-status status-{{ p.status }}">{{ p.status }}</span>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="empty-pedidos">
+                <span>🛍️</span>
+                <p>Você ainda não fez nenhum pedido.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
