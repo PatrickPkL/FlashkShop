@@ -15,6 +15,22 @@ FlaskShop é um template de e-commerce funcional e visualmente sofisticado, com 
 
 ---
 
+## 📸 Preview
+
+<img width="1907" height="879" alt="Captura_de_tela_20260424_132604" src="https://github.com/user-attachments/assets/1d9965c6-8b2c-4999-8872-f8b05ab701cc" />
+<br><br>
+<img width="1894" height="879" alt="Captura_de_tela_20260424_132630" src="https://github.com/user-attachments/assets/e474a8dc-827e-4b36-9f11-78126b76af15" />
+<br><br>
+<img width="1914" height="877" alt="Captura_de_tela_20260424_132642" src="https://github.com/user-attachments/assets/d09fe103-b2bd-423e-966f-395153b42d62" />
+<br><br>
+<img width="1914" height="881" alt="Captura_de_tela_20260424_132656" src="https://github.com/user-attachments/assets/b3577be7-b7c3-48b2-b17d-619284d4cdef" />
+<br><br>
+<img width="1914" height="881" alt="Captura_de_tela_20260424_132709" src="https://github.com/user-attachments/assets/e219028b-5882-4c74-9936-2005af74b682" />
+<br><br>
+<img width="1914" height="881" alt="Captura_de_tela_20260424_132715" src="https://github.com/user-attachments/assets/465a999f-f11b-4b5d-b548-31ab318df987" />
+
+---
+
 ## 🚀 Funcionalidades
 
 - 🔐 **Autenticação completa** — Cadastro, login e sessões seguras com hash de senha
